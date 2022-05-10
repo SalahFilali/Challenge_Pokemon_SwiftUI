@@ -9,6 +9,7 @@ import Foundation
 
 struct Pokemon: Decodable, Identifiable{
     
+    // MARK: - Properties
     let id,  weight, height, baseExperience, order: Int
     let name, imagePath : String
     let type: [PokemonType]
@@ -30,6 +31,7 @@ struct Pokemon: Decodable, Identifiable{
         case imagePath = "front_default"
     }
     
+    // MARK: - Methods
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: PokemonCodingKeys.self)
         
@@ -46,6 +48,7 @@ struct Pokemon: Decodable, Identifiable{
         self.order = try container.decode(Int.self, forKey: .order)
     }
     
+    /// Use this method tto mark an encountred Pokemon as "catched"
     public mutating func pokemonIsCatched() {
         self.isCatched = true
     }
