@@ -18,20 +18,44 @@ struct ScanForPokemonView: View {
         )
     )
     
+    @State private var isShowingMyPokemonsView = false
+    
     var body: some View {
         
         switch viewModel.viewState {
         case .initial:
-            VStack(alignment: .center, spacing: 20) {
-                Text(self.viewModel.errorMessage)
-                    .padding()
-                    .multilineTextAlignment(.center)
-                
-                Button {
-                    self.viewModel.scanForPokemon()
-                } label: {
-                    Text(self.viewModel.scanButtonTitle)
+            
+            NavigationView {
+                VStack(alignment: .center, spacing: 20) {
+                    HStack() {
+                        if self.isShowingMyPokemonsView {
+                            NavigationLink(isActive: self.$isShowingMyPokemonsView) {
+                                MyPokemonsView()
+                            } label: {
+                                Text("")
+                            }
+                        }
+                        Spacer()
+                        Button(action: {
+                            self.isShowingMyPokemonsView = true
+                        }) {
+                            Image("backpack_ic")
+                        }
+                    }
+                    .padding(.trailing, 20)
+                    Spacer()
+                    Text(self.viewModel.errorMessage)
+                        .padding()
+                        .multilineTextAlignment(.center)
+                    Button {
+                        self.viewModel.scanForPokemon()
+                    } label: {
+                        Text(self.viewModel.scanButtonTitle)
+                    }
+                    Spacer()
                 }
+                .navigationBarHidden(true)
+                .padding(.top, 20)
             }
             
         case .loading:
@@ -41,43 +65,76 @@ struct ScanForPokemonView: View {
                     .progressViewStyle(.circular)
             }
         case .failed(let errorMesssage):
-            VStack(alignment: .center, spacing: 20) {
-                Text("\(errorMesssage)")
-                    .padding()
-                    .multilineTextAlignment(.center)
-                
-                Button {
-                    self.viewModel.scanForPokemon()
-                } label: {
-                    Text(viewModel.scanButtonTitle)
+            NavigationView {
+                VStack(alignment: .center, spacing: 20) {
+                    HStack() {
+                        if self.isShowingMyPokemonsView {
+                            NavigationLink(isActive: self.$isShowingMyPokemonsView) {
+                                MyPokemonsView()
+                            } label: {
+                                Text("")
+                            }
+                        }
+                        Spacer()
+                        Text("\(errorMesssage)")
+                            .padding()
+                            .multilineTextAlignment(.center)
+                        Button {
+                            self.viewModel.scanForPokemon()
+                        } label: {
+                            Text(viewModel.scanButtonTitle)
+                        }
+                        Spacer()
+                    }
+                    .navigationBarHidden(true)
+                    .padding(.top, 20)
                 }
-                Spacer()
+            }
+        case .encounter(let pokemon, let catchable):
+            NavigationView {
+                VStack(alignment: .center, spacing: 20) {
+                    HStack() {
+                        if self.isShowingMyPokemonsView {
+                            NavigationLink(isActive: self.$isShowingMyPokemonsView) {
+                                MyPokemonsView()
+                            } label: {
+                                Text("")
+                            }
+                        }
+                        Spacer()
+                        Button(action: {
+                            self.isShowingMyPokemonsView = true
+                        }) {
+                            Image("backpack_ic")
+                        }
+                    }
+                    .padding(.trailing, 20)
+                    Spacer()
+                    PokemonEncounterView(encounteredPokemon: pokemon, catched: !catchable)
+                    HStack(alignment: .center, spacing: 20) {
+                        if catchable {
+                            Button {
+                                self.viewModel.catchPokemon(pokemon)
+                            } label: {
+                                Text("Catch")
+                            }
+                        }
+                        
+                        Button {
+                            self.viewModel.hideEncounteredPokemonView()
+                        } label: {
+                            Text("Leave")
+                        }
+                    }.padding(20)
+                    Spacer()
+                }
+                .navigationBarHidden(true)
+                .padding(.top, 20)
             }
             
-        case .encounter(let pokemon, let catchable):
-            VStack(alignment: .center, spacing: 20) {
-                
-                PokemonEncounterView(encounteredPokemon: pokemon, catched: !catchable)
-                
-                HStack(alignment: .center, spacing: 20) {
-                    
-                    Button {
-                        self.viewModel.catchPokemon(pokemon)
-                    } label: {
-                        Text("Catch")
-                    }
-                    
-                    Button {
-                        self.viewModel.hideEncounteredPokemonView()
-                    } label: {
-                        Text("Leave")
-                    }
-                }.padding(20)
-            }
         }
     }
 }
-
 struct ScanForPokemonView_Previews: PreviewProvider {
     static var previews: some View {
         ScanForPokemonView()
