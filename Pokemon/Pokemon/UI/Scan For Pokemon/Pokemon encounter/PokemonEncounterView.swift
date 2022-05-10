@@ -11,6 +11,8 @@ struct PokemonEncounterView: View {
     
     @State var encounteredPokemon: Pokemon
     
+    @State var catched: Bool
+    
     var body: some View {
         VStack(
                 alignment: .center,
@@ -22,6 +24,14 @@ struct PokemonEncounterView: View {
                     Color.white
                 }
                 .frame(width: 250, height: 250, alignment: .center)
+                
+                if self.catched {
+                    Text("You have already catched his cousin. Please spare him!")
+                        .padding()
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.red)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
                 
                 Text(self.encounteredPokemon.name)
                 

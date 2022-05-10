@@ -16,7 +16,7 @@ enum ScanForPokemonViewState: Equatable {
             return true
         case (.failed(let lhs), .failed(let rhs)):
             return lhs == rhs
-        case (.encounter(let lhs), .encounter(let rhs)):
+        case (.encounter(let lhs, _), .encounter(let rhs, _)):
             return lhs.id == rhs.id
         default:
             return false
@@ -26,6 +26,6 @@ enum ScanForPokemonViewState: Equatable {
     case initial
     case loading
     case failed(errorMesssage: String)
-    case encounter(pokemon: Pokemon)
+    case encounter(pokemon: Pokemon, catchable: Bool)
 }
 

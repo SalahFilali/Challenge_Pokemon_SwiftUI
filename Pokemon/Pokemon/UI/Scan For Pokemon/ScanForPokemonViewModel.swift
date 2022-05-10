@@ -41,8 +41,26 @@ class ScanForPokemonViewModel:ObservableObject {
                 self.viewState = .failed(errorMesssage: self.errorMessage)
             }
         }) { pokemon in
-            self.viewState = .encounter(pokemon: pokemon)
+            self.viewState = .encounter(pokemon: pokemon, catchable: !pokemon.isCatched)
         }
+    }
+    
+    /// Catch the encountered Pokemon
+    /// - Parameter pokemon: The encountered Pokemon
+    public func catchPokemon(_ pokemon: Pokemon) {
+        self.viewState = .loading
+        cancellable = self.pokemonRepository.catchPokemon(pokemon)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (completion) in
+                switch completion {
+                case .finished:
+                    break
+                case .failure:
+                    self.viewState = .failed(errorMesssage: "Oops! An error has occurred. Please try again later.")
+                }
+            }, receiveValue: { catchedPokemon in
+                self.scanForPokemon()
+            })
     }
     
     func handle(error: Error) {

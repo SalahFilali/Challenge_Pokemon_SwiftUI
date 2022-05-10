@@ -54,15 +54,15 @@ struct ScanForPokemonView: View {
                 Spacer()
             }
             
-        case .encounter(let pokemon):
+        case .encounter(let pokemon, let catchable):
             VStack(alignment: .center, spacing: 20) {
                 
-                PokemonEncounterView(encounteredPokemon: pokemon)
+                PokemonEncounterView(encounteredPokemon: pokemon, catched: !catchable)
                 
                 HStack(alignment: .center, spacing: 20) {
                     
                     Button {
-                        // Catch Pokemon
+                        self.viewModel.catchPokemon(pokemon)
                     } label: {
                         Text("Catch")
                     }

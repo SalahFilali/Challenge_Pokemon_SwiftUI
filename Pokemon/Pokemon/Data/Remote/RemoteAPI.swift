@@ -8,7 +8,7 @@
 import Combine
 
 
-/// Contains the absstraction of methods for performing API  calls.
+/// Contains the abstraction of methods for performing API  calls.
 protocol RemoteAPI {
     
     /// Search for surrounding Pokemons

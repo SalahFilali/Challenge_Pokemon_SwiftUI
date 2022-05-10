@@ -28,7 +28,24 @@ class PokemonRepositoryImp: PokemonRepository {
     }
     
     func scanForPokemon() -> AnyPublisher<Pokemon, Error> {
-        self.remoteAPI.scanForPokemon()
+        self.remoteAPI.scanForPokemon().flatMap{ pokemon -> AnyPublisher<Pokemon, Error> in
+            Future<Pokemon, Error>.init { promise in
+                if !self.dataStore.pokemonIsCatched(pokemon) {
+                    promise(.success(pokemon))
+                }
+                var alreadyCatchedPokemon = pokemon
+                alreadyCatchedPokemon.pokemonIsCatched()
+                promise(.success(alreadyCatchedPokemon))
+            }.eraseToAnyPublisher()
+        }.eraseToAnyPublisher()
+    }
+    
+    func catchPokemon(_ pokemon: Pokemon) -> AnyPublisher<CatchedPokemon, Error> {
+        self.dataStore.addCatchedPokemon(pokemon: pokemon)
+    }
+    
+    func getmyPokemons() -> AnyPublisher<[CatchedPokemon], Error> {
+        self.dataStore.getmyPokemons()
     }
     
 }
