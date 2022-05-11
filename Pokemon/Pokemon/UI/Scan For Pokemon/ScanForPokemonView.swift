@@ -52,6 +52,10 @@ struct ScanForPokemonView: View {
                     } label: {
                         Text(self.viewModel.scanButtonTitle)
                     }
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(Color.white)
+                        .clipShape(Capsule())
                     Spacer()
                 }
                 .navigationBarHidden(true)
@@ -93,6 +97,10 @@ struct ScanForPokemonView: View {
                     } label: {
                         Text(viewModel.scanButtonTitle)
                     }
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(Color.white)
+                        .clipShape(Capsule())
                     Spacer()
                 }
                 .navigationBarHidden(true)
@@ -126,6 +134,10 @@ struct ScanForPokemonView: View {
                             } label: {
                                 Text("Catch")
                             }
+                            .padding()
+                            .background(Color.red)
+                            .foregroundColor(Color.white)
+                            .clipShape(Capsule())
                         }
                         
                         Button {
@@ -133,6 +145,10 @@ struct ScanForPokemonView: View {
                         } label: {
                             Text("Leave")
                         }
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(Color.white)
+                            .clipShape(Capsule())
                     }.padding(20)
                     Spacer()
                 }
