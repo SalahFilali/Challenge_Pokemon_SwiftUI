@@ -34,6 +34,7 @@
 		5F943200282B1D460010B07E /* MyPokemonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9431FF282B1D460010B07E /* MyPokemonsView.swift */; };
 		5F943202282B2CEA0010B07E /* PokemonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F943201282B2CE80010B07E /* PokemonDetailsView.swift */; };
 		5F943204282B38DD0010B07E /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F943203282B38DC0010B07E /* Date+extension.swift */; };
+		5F943206282B3C7E0010B07E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F943205282B3C7E0010B07E /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		5F9431FF282B1D460010B07E /* MyPokemonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPokemonsView.swift; sourceTree = "<group>"; };
 		5F943201282B2CE80010B07E /* PokemonDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsView.swift; sourceTree = "<group>"; };
 		5F943203282B38DC0010B07E /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
+		5F943205282B3C7E0010B07E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			children = (
 				5F9431B4282AD0440010B07E /* Assets.xcassets */,
 				5F9431BB282AD0440010B07E /* Pokemon.xcdatamodeld */,
+				5F943205282B3C7E0010B07E /* Launch Screen.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F943206282B3C7E0010B07E /* Launch Screen.storyboard in Resources */,
 				5F9431B8282AD0440010B07E /* Preview Assets.xcassets in Resources */,
 				5F9431B5282AD0440010B07E /* Assets.xcassets in Resources */,
 			);
@@ -510,6 +514,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -538,6 +543,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
