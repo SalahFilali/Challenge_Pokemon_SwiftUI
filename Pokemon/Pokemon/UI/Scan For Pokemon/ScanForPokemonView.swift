@@ -132,7 +132,7 @@ struct ScanForPokemonView: View {
                             Button {
                                 self.viewModel.catchPokemon(pokemon)
                             } label: {
-                                Text("Catch")
+                                Text(NSLocalizedString("catch_button_text", comment: ""))
                             }
                             .padding()
                             .background(Color.red)

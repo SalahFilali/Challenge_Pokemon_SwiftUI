@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  Pokemon
+
+  Created by Salah Filali on 11/5/2022.
+  
+*/
+
+// MARK: - Scan For Pokemon
+
+"scan_button_text" = "Scan";
+"retry_button_text" = "Retry";
+"catch_button_text" = "Catch";
+"leave_button_text"= "Leave";
+"welcome_text" = "Start your jouney to become a Pokémon master!";
+
+// MARK: - Pokemon Encounter
+"pokemon_already_caught_message" = "You have already caught his cousin. Please spare him!";
+"pokemon_height_text" = "Height: %d cm";
+"pokemon_weight_text" = "Weight: %d KG";
+
+
+// MARK: - Errors
+"global_error_text" = "Oops! An error has occurred. Please try again later.";
+"internet_connection_error_text" = "Please check your internet connection or try again later.";
+"not_found_error_text" = "No Pokemons around please try again later.";

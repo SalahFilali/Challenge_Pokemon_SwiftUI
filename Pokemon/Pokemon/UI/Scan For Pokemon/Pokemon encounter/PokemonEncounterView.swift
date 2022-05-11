@@ -26,7 +26,7 @@ struct PokemonEncounterView: View {
                 .frame(width: 250, height: 250, alignment: .center)
                 
                 if self.catched {
-                    Text("You have already catched his cousin. Please spare him!")
+                    Text(NSLocalizedString("pokemon_already_caught_message", comment: ""))
                         .padding()
                         .multilineTextAlignment(.center)
                         .foregroundColor(.red)
@@ -35,9 +35,15 @@ struct PokemonEncounterView: View {
                 
                 Text(self.encounteredPokemon.name)
                 
-                Text("Height: \(self.encounteredPokemon.weight/10)  KG")
+                Text(String.localizedStringWithFormat(
+                    NSLocalizedString("pokemon_height_text", comment: ""),
+                    self.encounteredPokemon.height*10)
+                    )
                 
-                Text("Weight: \(self.encounteredPokemon.height*10) cm")
+                Text(String.localizedStringWithFormat(
+                    NSLocalizedString("pokemon_weight_text", comment: ""),
+                    self.encounteredPokemon.weight/10)
+                )
             }.padding()
         
     }

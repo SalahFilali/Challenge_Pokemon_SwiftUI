@@ -14,8 +14,8 @@ class ScanForPokemonViewModel:ObservableObject {
     
     @Published private(set) var viewState = ScanForPokemonViewState.initial
     
-    private(set) var errorMessage: String = "Start your jouney to become a Pokémon master!"
-    private(set) var scanButtonTitle: String = "Scan"
+    private(set) var errorMessage: String = NSLocalizedString("welcome_text", comment: "")
+    private(set) var scanButtonTitle: String = NSLocalizedString("scan_button_text", comment: "")
     
     var cancellable: AnyCancellable?
     
@@ -36,7 +36,6 @@ class ScanForPokemonViewModel:ObservableObject {
             case .finished:
                 break
             case .failure(let error):
-                print("scan for pokemon error: \(error.localizedDescription)")
                 self.handle(error: error)
                 self.viewState = .failed(errorMesssage: self.errorMessage)
             }
@@ -56,7 +55,7 @@ class ScanForPokemonViewModel:ObservableObject {
                 case .finished:
                     break
                 case .failure:
-                    self.viewState = .failed(errorMesssage: "Oops! An error has occurred. Please try again later.")
+                    self.viewState = .failed(errorMesssage: NSLocalizedString("global_error_text", comment: ""))
                 }
             }, receiveValue: { catchedPokemon in
                 self.scanForPokemon()
@@ -68,20 +67,20 @@ class ScanForPokemonViewModel:ObservableObject {
         let errorObject = error as NSError
         switch errorObject.code {
         case ResponseCode.internetConnectionError:
-            self.errorMessage = "Please check your internet connection or try again later."
-            self.scanButtonTitle = "Retry"
+            self.errorMessage = NSLocalizedString("internet_connection_error_text", comment: "")
+            self.scanButtonTitle = NSLocalizedString("retry_button_text", comment: "")
         case ResponseCode.httpNotFound:
-            self.errorMessage = "No Pokemons around please try again later."
+            self.errorMessage = NSLocalizedString("not_found_error_text", comment: "")
         default:
-            self.errorMessage = "Oops! An error has occurred. Please try again later."
-            self.scanButtonTitle = "Retry"
+            self.errorMessage = NSLocalizedString("global_error_text", comment: "")
+            self.scanButtonTitle = NSLocalizedString("retry_button_text", comment: "")
         }
     }
     
     func hideEncounteredPokemonView() {
         self.viewState = .initial
-        self.errorMessage = "Start your jouney to become a Pokémon master!"
-        self.scanButtonTitle = "Scan"
+        self.errorMessage = NSLocalizedString("welcome_text", comment: "")
+        self.scanButtonTitle = NSLocalizedString("scan_button_text", comment: "")
     }
     
 }
