@@ -36,18 +36,39 @@ struct PokemonDetailsView: View {
             }
             .frame(width: 200, height: 200, alignment: .center)
             
-            Text("Weight: \(self.pokemon.weight/10)  KG")
+            Text(
+                String.localizedStringWithFormat(
+                NSLocalizedString("pokemon_weight_text", comment: ""),
+                self.pokemon.weight/10)
+            )
             
-            Text("Height: \(self.pokemon.height*10)  cm")
+            Text(
+                String.localizedStringWithFormat(
+                NSLocalizedString("pokemon_height_text", comment: ""),
+                self.pokemon.height*10)
+                )
             
-            Text("Base experience: \(self.pokemon.base_experience)")
+            Text(
+                String.localizedStringWithFormat(
+                NSLocalizedString("base_experience_text", comment: ""),
+                self.pokemon.base_experience)
+            )
             
             let pokemonTypes = pokemon.typesArray.map { type -> String in
                 type.unwrappedname
             }.joined(separator: ", ")
-            Text("Type: \(pokemonTypes)")
+            Text(
+                String.localizedStringWithFormat(
+                NSLocalizedString("type_text", comment: ""),
+                pokemonTypes)
+            )
             
-            Text("Caught at: \(self.pokemon.unwrappedCatchedAt.dateToString())")
+            Text(
+                String.localizedStringWithFormat(
+                NSLocalizedString("caught_at_text", comment: ""),
+                self.pokemon.unwrappedCatchedAt.dateToString())
+            )
+            
         }
         Spacer()
     }

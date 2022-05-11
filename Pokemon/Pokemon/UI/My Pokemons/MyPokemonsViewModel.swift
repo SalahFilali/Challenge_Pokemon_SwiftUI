@@ -13,7 +13,7 @@ class MyPokemonsViewModel:ObservableObject {
     // MARK: - Properties
     @Published private(set) var viewState = MyPokemonsViewState.initial
     
-    private(set) var infoMessage: String = "No Pokemons catched yet!"
+    private(set) var infoMessage: String = NSLocalizedString("empty_list_text", comment: "")
 
     @Published var myPokemons: [CatchedPokemon] = []
     
@@ -42,7 +42,7 @@ class MyPokemonsViewModel:ObservableObject {
                 case .finished:
                     break
                 case .failure:
-                    self.viewState = .failed(errorMesssage: "Oops! An error has occurred. Please try again later.")
+                    self.viewState = .failed(errorMesssage: NSLocalizedString("global_error_text", comment: ""))
                 }
             }, receiveValue: { pokemons in
                 if pokemons.isEmpty {

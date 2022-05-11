@@ -19,8 +19,17 @@
 "pokemon_height_text" = "Height: %d cm";
 "pokemon_weight_text" = "Weight: %d KG";
 
+// MARK: - My Pokemons
+"empty_list_text" = "No Pokemons caught yet!";
+
+// MARK: - My Pokemons
+"base_experience_text" = "Base experience: %d";
+"type_text" = "Type: %d";
+"caught_at_text" = "Caught at: %@";
+
 
 // MARK: - Errors
 "global_error_text" = "Oops! An error has occurred. Please try again later.";
 "internet_connection_error_text" = "Please check your internet connection or try again later.";
 "not_found_error_text" = "No Pokemons around please try again later.";
+
