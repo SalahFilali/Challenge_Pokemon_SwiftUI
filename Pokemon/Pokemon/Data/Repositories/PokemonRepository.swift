@@ -12,12 +12,12 @@ import Combine
 protocol PokemonRepository {
     
     /// Search for surrounding Pokemons
-    /// - Returns: AnyPublisher containing the encountred Pokemon or an Error
+    /// - Returns: }AnyPublisher containing the encountred Pokemon or an Error
     func scanForPokemon() -> AnyPublisher<Pokemon, Error>
     
     /// Catch the encountered Pokemon
-    /// - Returns: AnyPublisher with the catched Pokemon or error
-    func catchPokemon(_ pokemon: Pokemon) -> AnyPublisher<CatchedPokemon, Error>
+    /// - Returns: AnyPublisher with true Bool value if the Pokemon is caught or error
+    func catchPokemon(_ pokemon: Pokemon) -> AnyPublisher<Bool, Error>
     
     /// Get the catched Pokemons
     /// - Returns: AnyPublisher with the array of catched Pokemon or Error

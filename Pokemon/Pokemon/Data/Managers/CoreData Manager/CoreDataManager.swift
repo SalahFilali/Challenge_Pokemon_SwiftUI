@@ -34,16 +34,16 @@ class CoreDataManager {
     
     /// Saves the catched Pookemon in Data Base
     /// - Parameter pokemon: The pokemon to catch
-    /// - Returns: AnyPublisher with the catched pokemon or Error
-    public func addCatchedPokemon(pokemon: Pokemon) -> AnyPublisher<CatchedPokemon, Error>{
-        Future<CatchedPokemon, Error>.init {[weak self] promise in
+    /// - Returns: AnyPublisher with true Bool value if the Pokemon is caught or Error
+    public func addCatchedPokemon(pokemon: Pokemon) -> AnyPublisher<Bool, Error>{
+        Future<Bool, Error>.init {[weak self] promise in
             guard let self = self else {
                 return promise(.failure(NSError(domain: "No data", code: 0)))
             }
-            let catchedPokemon = self.createCatchedPokemon(pokemon: pokemon)
+            self.createCatchedPokemon(pokemon: pokemon)
             do {
                 try self.context.save()
-                promise(.success(catchedPokemon))
+                promise(.success(true))
             } catch {
 
                 let nsError = error as NSError
@@ -54,8 +54,8 @@ class CoreDataManager {
     
     /// Transform the encountred Pokemon of type Pokemon to a CatchedPokemon type and with a catched_at property
     /// - Parameter pokemon: The given Pokemon to transform to a CatchedPokemn
-    /// - Returns: CatchedPokemon with a catched_at property
-    private func createCatchedPokemon(pokemon: Pokemon) -> CatchedPokemon {
+    
+    private func createCatchedPokemon(pokemon: Pokemon) {
         let catchedPokemon = CatchedPokemon(context: self.container.viewContext)
         catchedPokemon.id = Int16(pokemon.id)
         catchedPokemon.name = pokemon.name
@@ -72,7 +72,6 @@ class CoreDataManager {
         if let date = Date().dateWithFormat() {
             catchedPokemon.catched_at = date
         }
-        return catchedPokemon
     }
 
     /// The array of catched Pokemons saved in Data Base

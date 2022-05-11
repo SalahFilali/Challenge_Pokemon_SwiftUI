@@ -57,7 +57,7 @@ class ScanForPokemonViewModel:ObservableObject {
                 case .failure:
                     self.viewState = .failed(errorMesssage: NSLocalizedString("global_error_text", comment: ""))
                 }
-            }, receiveValue: { catchedPokemon in
+            }, receiveValue: { _ in
                 self.scanForPokemon()
             })
     }

@@ -24,8 +24,8 @@ class ScanForPokemonViewModelTests: XCTestCase {
         super.tearDown()
     }
 
-    func testScanForPokemonViewModel_WithSucess() {
-        let expectation = self.expectation(description: "testScanForPokemonViewModel_WithSucesstestScanForPokemonViewModel_WithSucess")
+    func testScanForPokemonViewModel_ScanForPokemonWithSucess() {
+        let expectation = self.expectation(description: "testScanForPokemonViewModel_WithSucess")
         expectation.assertForOverFulfill = false
         
         let expectedPokemon = Pokemon(id: 1, weight: 50, height: 100, baseExperience: 100, order: 1, name: "Pokemon for test", type: [PokemonType(name: "dark"), PokemonType(name: "fighting")])
@@ -44,7 +44,7 @@ class ScanForPokemonViewModelTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func testScanForPokemonViewModel_WithNotFoundError() {
+    func testScanForPokemonViewModel_ScanForPokemonWithNotFoundError() {
         let expectation = self.expectation(description: "testScanForPokemonViewModel_NotFoundError")
         expectation.assertForOverFulfill = false
         let fakeRepository = FakeRepository(with: ResponseCode.httpNotFound)
@@ -63,7 +63,7 @@ class ScanForPokemonViewModelTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func testScanForPokemonViewModel_WithInternetConnectionError() {
+    func testScanForPokemonViewModel_ScanForPokemonWithInternetConnectionError() {
         let expectation = self.expectation(description: "testScanForPokemonViewModel_WithInternetConnectionError")
         expectation.assertForOverFulfill = false
         let fakeRepository = FakeRepository(with: ResponseCode.internetConnectionError)
@@ -82,7 +82,7 @@ class ScanForPokemonViewModelTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func testScanForPokemonViewModel_WithGlobalError() {
+    func testScanForPokemonViewModel_ScanForPokemonWithGlobalError() {
         let expectation = self.expectation(description: "testScanForPokemonViewModel_WithGlobalError")
         expectation.assertForOverFulfill = false
         let fakeRepository = FakeRepository(with: 500)
@@ -101,4 +101,65 @@ class ScanForPokemonViewModelTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
+    func testScanForPokemonViewModel_CatchPokemonWithSucess() {
+        let expectation = self.expectation(description: "testScanForPokemonViewModel_CatchPokemonWithSucess")
+        expectation.assertForOverFulfill = false
+
+        let pokemonForTest = Pokemon(id: 1, weight: 50, height: 100, baseExperience: 100, order: 1, name: "Pokemon for test", type: [PokemonType(name: "dark"), PokemonType(name: "fighting")])
+        sut.catchPokemon(pokemonForTest)
+
+        var cancellable: AnyCancellable?
+        cancellable = sut.$viewState
+            .dropFirst()
+            .sink { value in
+                XCTAssertEqual(value, .loading)
+                cancellable?.cancel()
+                expectation.fulfill()
+            }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    func testScanForPokemonViewModel_CatchPokemonWithError() {
+        let expectation = self.expectation(description: "testScanForPokemonViewModel_CatchPokemonWithError")
+        expectation.assertForOverFulfill = false
+
+        let fakeRepository = FakeRepository(with: 500)
+        sut = ScanForPokemonViewModel(pokemonRepository: fakeRepository)
+        
+        let pokemonForTest = Pokemon(id: 1, weight: 50, height: 100, baseExperience: 100, order: 1, name: "Pokemon for test", type: [PokemonType(name: "dark"), PokemonType(name: "fighting")])
+        sut.catchPokemon(pokemonForTest)
+        
+        var cancellable: AnyCancellable?
+        cancellable = sut.$viewState
+            .dropFirst()
+            .sink { value in
+                XCTAssertEqual(value, .failed(errorMesssage: NSLocalizedString("global_error_text", comment: "")))
+                cancellable?.cancel()
+                expectation.fulfill()
+            }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    private func createCatchedPokemon(from pokemon: Pokemon) -> CatchedPokemon {
+        let catchedPokemon = CatchedPokemon()
+        catchedPokemon.id = Int16(pokemon.id)
+        catchedPokemon.name = pokemon.name
+        catchedPokemon.weight = Int16(pokemon.weight)
+        catchedPokemon.height = Int16(pokemon.height)
+        catchedPokemon.base_experience = Int16(pokemon.baseExperience)
+        catchedPokemon.image_path = pokemon.imagePath
+        catchedPokemon.type = NSSet(array: pokemon.type.map({ type -> CatchedPokemonType in
+            let catchedPokemonType = CatchedPokemonType()
+            catchedPokemonType.name = type.name
+            return catchedPokemonType
+        }))
+        catchedPokemon.order = Int16(pokemon.order)
+        if let date = Date().dateWithFormat() {
+            catchedPokemon.catched_at = date
+        }
+        return catchedPokemon
+    }
+    
 }

@@ -40,7 +40,7 @@ class PokemonRepositoryImp: PokemonRepository {
         }.eraseToAnyPublisher()
     }
     
-    func catchPokemon(_ pokemon: Pokemon) -> AnyPublisher<CatchedPokemon, Error> {
+    func catchPokemon(_ pokemon: Pokemon) -> AnyPublisher<Bool, Error> {
         self.dataStore.addCatchedPokemon(pokemon: pokemon)
     }
     

@@ -11,8 +11,8 @@ import Combine
 protocol DataStore {
     
     /// Catch an encountered Pokemon
-    /// - Returns: AnyPublisher with the catched Pokemon or Error
-    func addCatchedPokemon(pokemon: Pokemon) -> AnyPublisher<CatchedPokemon, Error>
+    /// - Returns: AnyPublisher with true Bool value if the Pokemon is caught or Error
+    func addCatchedPokemon(pokemon: Pokemon) -> AnyPublisher<Bool, Error>
     
     /// Check if the encountered Pokemon is already catched.
     /// - Returns: True if the encountered Pokemon is already catched or false if not

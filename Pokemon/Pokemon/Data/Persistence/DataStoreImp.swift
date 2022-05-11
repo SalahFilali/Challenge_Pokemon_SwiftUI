@@ -14,7 +14,7 @@ class DataStoreImp: DataStore {
     private let coreDataManager =  CoreDataManager.shared
 
     // MARK: - Methods
-    func addCatchedPokemon(pokemon: Pokemon) -> AnyPublisher<CatchedPokemon, Error> {
+    func addCatchedPokemon(pokemon: Pokemon) -> AnyPublisher<Bool, Error> {
         self.coreDataManager.addCatchedPokemon(pokemon: pokemon).eraseToAnyPublisher()
     }
     
