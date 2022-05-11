@@ -19,6 +19,9 @@ class MyPokemonsViewModel:ObservableObject {
     
     @Published var selectedPokemon: CatchedPokemon?
     
+    @Published var showingPokemonDetails = false
+    
+    
     let pokemonRepository: PokemonRepository
     
     var cancellable: AnyCancellable?
@@ -48,6 +51,13 @@ class MyPokemonsViewModel:ObservableObject {
                     self.viewState = .showList(pokemons: pokemons)
                 }
             })
+    }
+    
+    /// Show the selected  Pokemon details
+    /// - Parameter pokemon: the selected Pokemon
+    func showPokemonDetails(_ pokemon: CatchedPokemon) {
+        self.selectedPokemon = pokemon
+        self.showingPokemonDetails = true
     }
     
 }

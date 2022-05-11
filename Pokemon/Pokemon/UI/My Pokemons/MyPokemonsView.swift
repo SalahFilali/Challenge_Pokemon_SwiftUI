@@ -40,22 +40,30 @@ struct MyPokemonsView: View {
                 LazyVGrid(columns: config, alignment: .center, spacing: 10) {
                     ForEach(pokemons, id: \.self) { pokemon in
                         VStack(alignment: .center, spacing: 3) {
-                            AsyncImage(url: URL(string: pokemon.image_path ?? "")) { image in
+                            AsyncImage(url: URL(string: pokemon.unwrappedImagePath)) { image in
                                 image.resizable()
                             } placeholder: {
                                 Color.white
                             }
                             .frame(width: 100, height: 100, alignment: .leading)
                             
-                            Text(pokemon.name ?? "")
+                            Text(pokemon.unwrappedName)
                                 .multilineTextAlignment(.center)
                             
+                        }
+                        .onTapGesture {
+                            self.viewModel.showPokemonDetails(pokemon)
                         }
                     }
                     .frame(height: 150)
                     .cornerRadius(10)
                     .overlay(RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray, lineWidth: 1))
+                }
+            }
+            .popover(isPresented: self.$viewModel.showingPokemonDetails) {
+                if let pokemon = self.viewModel.selectedPokemon {
+                    PokemonDetailsView(pokemon: pokemon)
                 }
             }
         case .failed(let errorMesssage):

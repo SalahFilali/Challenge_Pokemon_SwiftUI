@@ -69,11 +69,12 @@ class CoreDataManager {
             return catchedPokemonType
         }))
         catchedPokemon.order = Int16(pokemon.order)
-        catchedPokemon.catched_at = Date()
+        if let date = Date().dateWithFormat() {
+            catchedPokemon.catched_at = date
+        }
         return catchedPokemon
     }
 
-    
     /// The array of catched Pokemons saved in Data Base
     /// - Returns: AnyPublisher with array of CatchedPokemons or Error
     public func getmyPokemons() -> AnyPublisher<[CatchedPokemon], Error>{

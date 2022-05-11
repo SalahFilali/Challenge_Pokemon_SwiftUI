@@ -76,19 +76,27 @@ struct ScanForPokemonView: View {
                             }
                         }
                         Spacer()
-                        Text("\(errorMesssage)")
-                            .padding()
-                            .multilineTextAlignment(.center)
-                        Button {
-                            self.viewModel.scanForPokemon()
-                        } label: {
-                            Text(viewModel.scanButtonTitle)
+                        Button(action: {
+                            self.isShowingMyPokemonsView = true
+                        }) {
+                            Image("backpack_ic")
                         }
-                        Spacer()
                     }
-                    .navigationBarHidden(true)
-                    .padding(.top, 20)
+                    .padding(.trailing, 20)
+                    Spacer()
+                    Text("\(errorMesssage)")
+                        .padding()
+                        .multilineTextAlignment(.center)
+                    
+                    Button {
+                        self.viewModel.scanForPokemon()
+                    } label: {
+                        Text(viewModel.scanButtonTitle)
+                    }
+                    Spacer()
                 }
+                .navigationBarHidden(true)
+                .padding(.top, 20)
             }
         case .encounter(let pokemon, let catchable):
             NavigationView {
