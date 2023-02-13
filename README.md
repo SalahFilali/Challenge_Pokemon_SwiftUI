@@ -1,5 +1,5 @@
 # Pokemon_SwiftUI
-An iOS project collect Pokemons developped with SwiftUI. 
+An iOS project to collect Pokemons developped with SwiftUI. 
 
 > ### To run this project you will need to have XCode 13 or later.
 
